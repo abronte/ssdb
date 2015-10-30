@@ -1,5 +1,5 @@
 FROM ubuntu
-MAINTAINER wendal "wendal1985@gmail.com"
+MAINTAINER adambronte "adam@bronte.me"
 
 # Set the env variable DEBIAN_FRONTEND to noninteractive
 ENV DEBIAN_FRONTEND noninteractive
@@ -18,13 +18,11 @@ RUN mkdir -p /var/lib/ssdb && \
     -e 's@home.*@home /var/lib@' \
     -e 's/loglevel.*/loglevel info/' \
     -e 's@work_dir = .*@work_dir = /var/lib/ssdb@' \
-    -e 's@pidfile = .*@pidfile = /run/ssdb.pid@' \
+    -e 's@pidfile = .*@@' \
     -e 's@level:.*@level: info@' \
     -e 's@ip:.*@ip: 0.0.0.0@' \
     -i /etc/ssdb.conf
 
-
-ENV TZ Asia/Shanghai
 EXPOSE 8888
 VOLUME /var/lib/ssdb
 ENTRYPOINT /usr/bin/ssdb-server /etc/ssdb.conf
